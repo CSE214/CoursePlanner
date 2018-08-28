@@ -64,11 +64,12 @@ public class Course implements Cloneable {
 	 * @param code 
 	 * 	The new code of the course. 
 	 * 
-	 * <dt>Preconditions:
-	 * 	<dd><code>section</code> is at least 0.
+	 * <dt>Preconditions:</dt>
+	 * 	<dd><code>section</code> is at least 0.</dd>
 	 * 
 	 * @throws IllegalArgumentException
 	 * 	if <code>code</code> is below 0.
+	 * 
 	 */
 	public void setCode(int code) throws IllegalArgumentException {
 		if(code < 0) {
@@ -90,8 +91,8 @@ public class Course implements Cloneable {
 	 * @param section 	
 	 * 	The new section of the course.
 	 *
-	 * <dt>Preconditions:
-	 * 	<dd><code>section</code> is at least 0.
+	 * <dt>Preconditions:</dt>
+	 * 	<dd><code>section</code> is at least 0.</dd>
 	 * 
 	 * @throws IllegalArgumentException
 	 * 	if <code>section</code> is below 0.
