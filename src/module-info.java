@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author sivak
+ *
+ */
+module courseplanner {
+}

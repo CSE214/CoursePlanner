@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"courseplanner","l":"Course"}]
