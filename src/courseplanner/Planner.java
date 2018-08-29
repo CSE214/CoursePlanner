@@ -8,7 +8,6 @@ package courseplanner;
 *    e-mail: sayan.sivakumaran@stonybrook.edu
 *    Stony Brook ID: 110261379
 *    
-* @custom.mytag hey ho...
 **/
 
 public class Planner {
@@ -68,7 +67,19 @@ public class Planner {
      * @throws FullPlannerException
      * 	Indicates that there is no more room in the Planner for an additional course.
 	 */
-	public void addCourse(Course newCourse, int position) throws IllegalArgumentException, FullPlannerException{
-		
+	public void addCourse(Course course, int position) throws IllegalArgumentException, FullPlannerException{
+		if (position < 1 || position > courseCount + 1) {
+			throw new IllegalArgumentException(position + " is out of range.");
+		} else if (courseCount == MAX_COURSES) {
+			throw new FullPlannerException();
+		}
+		//Position shifted down by 1 to account for index starting at 0
+		position -= 1;
+		//Shift courses after position up by 1
+		for (int i = position; i < courseCount; i++) {
+			courseList[i+1] = courseList[i];
+		}
+		courseList[position] = course;
+		courseCount += 1;
 	}
 }

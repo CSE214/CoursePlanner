@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"courseplanner","c":"Planner","l":"Planner()"},{"p":"courseplanner","c":"Planner","l":"size()"}]
+memberSearchIndex = [{"p":"courseplanner","c":"Planner","l":"addCourse(Course, int)","url":"addCourse-courseplanner.Course-int-"},{"p":"courseplanner","c":"Planner","l":"Planner()"},{"p":"courseplanner","c":"Planner","l":"size()"}]

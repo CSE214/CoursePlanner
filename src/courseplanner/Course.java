@@ -177,5 +177,10 @@ public class Course implements Cloneable {
 		       this.instructor == otherCourse.instructor;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("%-15s%-8s%8s%8s%15s", name, department, code, section, instructor);
+		
+	}
 	
 }
