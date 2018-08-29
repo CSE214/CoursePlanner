@@ -41,7 +41,7 @@ public class Planner {
 	}
 	
 	/**
-	 * Adds a new course into <code>courseList</code> at the computed index.
+	 * Adds a new course at the specified position.
 	 * 
 	 * @param newCourse
 	 * 	The new course to be added.
@@ -58,7 +58,7 @@ public class Planner {
      * <dt>Postconditions:</dt>
      * <dd>
      * The new Course is now listed in the correct preference on the list. 
-     * All Courses that originally had preference greater than or equal to 
+     * All Courses that originally had position greater than or equal to 
      * <code>position</code> are moved back one position.
      * </dd>
      * 
@@ -67,7 +67,7 @@ public class Planner {
      * @throws FullPlannerException
      * 	Indicates that there is no more room in the Planner for an additional course.
 	 */
-	public void addCourse(Course course, int position) throws IllegalArgumentException, FullPlannerException{
+	public void addCourse(Course newCourse, int position) throws IllegalArgumentException, FullPlannerException{
 		if (position < 1 || position > courseCount + 1) {
 			throw new IllegalArgumentException(position + " is out of range.");
 		} else if (courseCount == MAX_COURSES) {
@@ -76,10 +76,196 @@ public class Planner {
 		//Position shifted down by 1 to account for index starting at 0
 		position -= 1;
 		//Shift courses after position up by 1
-		for (int i = position; i < courseCount; i++) {
+		for (int i = courseCount - 1; i >= position; i--) {
 			courseList[i+1] = courseList[i];
+			courseList[i] = null;
 		}
-		courseList[position] = course;
+		courseList[position] = newCourse;
 		courseCount += 1;
+	}
+	
+	/**
+	 * Adds a new course at the end of the list.
+	 * 
+	 * @param newCourse
+	 * 	The new course to be added.
+	 * 
+	 *<dt>Preconditions:</dt>
+     * <dd>
+     * The Course object has been instantiated and 
+     * the number of Course objects in 
+     * this Planner is less than <code>MAX_COURSES</code>.
+     * </dd>
+     * 
+     * <dt>Postconditions:</dt>
+     * <dd>
+     * The new Course is now listed at the end of the list.
+     * </dd>
+     * 
+     * @throws FullPlannerException
+     * 	Indicates that there is no more room in the Planner for an additional course.
+	 */
+	public void addCourse(Course course) throws FullPlannerException {
+		addCourse(course, courseCount + 1);
+	}
+	
+	/**
+	 * Removes a course at the specified position.
+	 * 
+	 * @param position
+	 * 	the position in the Planner where the Course will be removed from
+	 * 
+	 * <dt>Preconditions:</dt>
+     * <dd>
+     * This Planner has been instantiated and 
+     * 1 &#8804; <code>position</code> &#8804; (<code>courseCount</code>).
+     * </dd>
+     * 
+     * <dt>Postconditions:</dt>
+     * <dd>
+     * The Course at the desired position has been removed. All Courses that 
+     * originally had position greater than or equal to <code>position</code> are moved 
+     * backward one position.
+     * </dd>
+     * 
+	 * @throws IllegalArgumentException
+	 * 	Indicates that <code>position</code> is not within the valid range.
+	 */
+	public void removeCourse(int position) throws IllegalArgumentException {
+		if (position < 1 || position > courseCount) {
+			throw new IllegalArgumentException(position + " is out of range.");
+		}
+		//Position shifted down by 1 to account for index starting at 0
+		position -= 1;
+		courseList[position] = null;
+		// Move courses backward
+		for (int i = position; i < courseCount; i++) {
+			courseList[i] = courseList[i+1];
+			courseList[i+1] = null;
+		}
+	}
+	
+	/**
+	 * Retrieves a course from the specified position.
+	 * 
+	 * @param position
+	 * 	the position of the Course to retrieve.
+	 * 
+	 * <dt>Preconditions:</dt>
+     * <dd>
+     * This Planner has been instantiated and 
+     * 1 &#8804; <code>position</code> &#8804; (<code>courseCount</code>).
+     * </dd>
+     * 
+	 * @return
+	 * 	The course at the specific position in this Planner object.
+	 * @throws IllegalArgumentException
+	 *  Indicates that <code>position</code> is not within the valid range.
+	 */
+	public Course getCourse(int position) throws IllegalArgumentException {
+		return courseList[position-1];
+	}
+	
+	/**
+	 * Prints all courses that are in the specified department.
+	 * 
+	 * @param planner
+	 * 	The list of courses to search in
+	 * @param department
+	 * 	The 3 letter department code for a Course
+	 * 
+	 * <dt>Preconditions:</dt>
+     * <dd>
+     * This Planner has been instantiated.
+     * </dd>
+     * 
+     * <dt>Postconditions:</dt>
+     * <dd>
+     * Displays a neatly formatted table of each course filtered from the Planner.
+     * </dd>
+	 */
+	public static void filter(Planner planner, String department) {
+		System.out.println(String.format("%-10s%-23s%-18s%-10s%2s%15s", "No.","Name", "Department", "Code", "Section", "Instructor"));
+		System.out.println("------------------------------------------------------------------------------------");
+		for (int i = 0; i < planner.courseCount; i++) {
+			Course course = planner.courseList[i];
+			if ( course.getDepartment() == department) {
+				System.out.println(String.format("%-10s%s", i + 1, course.toString()));
+			}
+		}
+	}
+	
+	/**
+	 * Checks whether a certain Course is already in the list.
+	 * 
+	 * @param course
+	 * 	The course we are looking for.
+	 * 
+	 * <dt>Preconditions:</dt>
+     * <dd>
+     * This Planner and Course have both been instantiated.
+     * </dd>
+     * 
+     * @returns
+     * 	True if the Planner contains the course, false otherwise.
+	 */
+	public boolean exists(Course course) {
+		for(Course courseObject : courseList) {
+			if (course.equals(courseObject)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Creates a deep copy of this Planner.
+	 *
+	 * <dt>Preconditions:</dt>
+     * <dd>
+     * This Planner object has been instantiated.
+     * </dd>
+     * 
+     * @returns
+     * 	A clone (backup) of this Planner Object. 
+	 */
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+	
+	/**
+	 * Gets the String representation of this Planner object.
+	 *
+     * @returns
+     * 	The string representation of this planner object. 
+	 */
+	@Override
+	public String toString() {
+		String plannerString = String.format("%-10s%-23s%-18s%-10s%2s%15s", "No.","Name", "Department", "Code", "Section", "Instructor") +
+		"\n------------------------------------------------------------------------------------";
+		
+		for (int i = 0; i < courseCount; i++) {
+			plannerString += "\n" + String.format("%-10s%s", i + 1, courseList[i].toString());
+		}
+		
+		return plannerString;
+	}
+	
+	/**
+	 * Prints a neatly formatted table representation of this planner.
+	 *
+	 * <dt>Preconditions:</dt>
+     * <dd>
+     * This Planner object has been instantiated.
+     * </dd>
+     * 
+	 * <dt>Postconditions:</dt>
+     * <dd>
+     * Displays a neatly formatted table of each course from the Planner.
+     * </dd>
+	 */
+	public void printAllCourses() {
+		System.out.println(toString());
 	}
 }

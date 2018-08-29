@@ -179,8 +179,8 @@ public class Course implements Cloneable {
 	
 	@Override
 	public String toString() {
-		return String.format("%-15s%-8s%8s%8s%15s", name, department, code, section, instructor);
-		
+		return String.format("%-23s%-18s%-10s%02d%17s", name, department, code, section, instructor);
+	
 	}
 	
 }
