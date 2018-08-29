@@ -242,8 +242,8 @@ public class Planner {
 	 */
 	@Override
 	public String toString() {
-		String plannerString = String.format("%-10s%-23s%-18s%-10s%2s%15s", "No.","Name", "Department", "Code", "Section", "Instructor") +
-		"\n------------------------------------------------------------------------------------";
+		String plannerString = String.format("%-10s%-30s%-15s%-10s%2s%15s", "No.","Name", "Department", "Code", "Section", "Instructor") +
+		"\n---------------------------------------------------------------------------------------------------------";
 		
 		for (int i = 0; i < courseCount; i++) {
 			plannerString += "\n" + String.format("%-10s%s", i + 1, courseList[i].toString());

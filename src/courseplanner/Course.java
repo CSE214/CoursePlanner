@@ -179,7 +179,7 @@ public class Course implements Cloneable {
 	
 	@Override
 	public String toString() {
-		return String.format("%-23s%-18s%-10s%02d%17s", name, department, code, section, instructor);
+		return String.format("%-30s%-15s%-10s%02d%17s", name, department, code, section, instructor);
 	
 	}
 	
