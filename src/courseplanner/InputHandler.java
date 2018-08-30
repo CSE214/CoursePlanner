@@ -36,6 +36,27 @@ public class InputHandler {
 	}
 	
 	/**
+	 * Receives a non-negative number from user input.
+	 * 
+	 * @return
+	 * 	A non-negative number.
+	 */
+	public int nextNonNegativeInt() {
+		int number;
+		do {
+		    while (!in.hasNextInt()) {
+		        System.err.print("Please enter a number: ");
+		        in.nextLine();
+		    }
+		    number = Integer.parseInt(in.nextLine());
+		    if (number <= 0) {
+		    	System.err.print("Please make sure to give a non-negative number: ");
+		    }
+		} while (number <= 0);
+		return number;
+	}
+
+	/**
 	 * Receives a positive number from user input.
 	 * 
 	 * @return
@@ -45,12 +66,12 @@ public class InputHandler {
 		int number;
 		do {
 		    while (!in.hasNextInt()) {
-		        System.out.print("Please enter a number: ");
-		        in.next();
+		        System.err.print("Please enter a number: ");
+		        in.nextLine();
 		    }
-		    number = in.nextInt();
+		    number = Integer.parseInt(in.nextLine());
 		    if (number < 0) {
-		    	System.out.print("Please make sure to give a non-negative number: ");
+		    	System.err.print("Please make sure to give a non-negative number: ");
 		    }
 		} while (number < 0);
 		return number;

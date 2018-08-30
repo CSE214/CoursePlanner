@@ -185,12 +185,10 @@ public class Planner {
      * </dd>
 	 */
 	public static void filter(Planner planner, String department) {
-		System.out.println(String.format("%-10s%-23s%-18s%-10s%2s%15s", "No.","Name", "Department", "Code", "Section", "Instructor"));
-		System.out.println("------------------------------------------------------------------------------------");
 		for (int i = 0; i < planner.courseCount; i++) {
 			Course course = planner.courseList[i];
 			if ( course.getDepartment() == department) {
-				System.out.println(String.format("%-10s%s", i + 1, course.toString()));
+				System.out.println(course.toString(i + 1));
 			}
 		}
 	}
@@ -219,6 +217,21 @@ public class Planner {
 	}
 	
 	/**
+	 * Checks whether this planner is full.
+	 * 
+	 * <dt>Preconditions:</dt>
+     * <dd>
+     * This planner object has been instantiated.
+     * </dd>
+     * 
+     * @returns
+     * 	True if the planner is full, false otherwise.
+	 */
+	public boolean isFull() {
+		return courseCount == MAX_COURSES;
+	}
+	
+	/**
 	 * Creates a deep copy of this Planner.
 	 *
 	 * <dt>Preconditions:</dt>
@@ -241,12 +254,10 @@ public class Planner {
      * 	The string representation of this planner object. 
 	 */
 	@Override
-	public String toString() {
-		String plannerString = String.format("%-10s%-30s%-15s%-10s%2s%15s", "No.","Name", "Department", "Code", "Section", "Instructor") +
-		"\n---------------------------------------------------------------------------------------------------------";
-		
+	public String toString() {	
+		String plannerString = "";
 		for (int i = 0; i < courseCount; i++) {
-			plannerString += "\n" + String.format("%-10s%s", i + 1, courseList[i].toString());
+			plannerString += courseList[i].toString(i + 1);
 		}
 		
 		return plannerString;

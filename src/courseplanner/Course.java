@@ -177,10 +177,8 @@ public class Course implements Cloneable {
 		       this.instructor == otherCourse.instructor;
 	}
 	
-	@Override
-	public String toString() {
-		return String.format("%-30s%-15s%-10s%02d%17s", name, department, code, section, instructor);
-	
+	public String toString(int position) {
+		return String.format("%-10s%-30s%-15s%-10s%02d%17s\n", position, name, department, code, section, instructor);
 	}
 	
 }
