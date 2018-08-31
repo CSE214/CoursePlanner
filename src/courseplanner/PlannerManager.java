@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 public class PlannerManager {
 	private static Planner planner = new Planner(); // Stores the main Planner
-	private static Planner backupPlanner; // Stores the backup Planner
+	private static Planner backupPlanner = new Planner(); // Stores the backup Planner
 	private static InputHandler in = new InputHandler();
 
 	/**
@@ -87,6 +87,14 @@ public class PlannerManager {
 		}
 		case "B": {
 			backup();
+			break;
+		}
+		case "PB": {
+			printBackup();
+			break;
+		}
+		case "RB": {
+			revertToBackup();
 			break;
 		}
 		case "Q": {
@@ -278,6 +286,36 @@ public class PlannerManager {
 	 */
 	public static void backup() {
 		backupPlanner = (Planner) planner.clone();
+		System.out.println("Created a backup of the current planner.");
+		printMenu();
+		commandManager();
+	}
+	
+	/**
+	 * Prints all the courses in the backup planner.
+	 * 
+	 * <dt>Postconditions</dt>
+	 * <dd>The backup planner has been printed, and the user returns to the menu.</dd>
+	 */
+	public static void printBackup() {
+		System.out.println("Planner (Backup):");
+		printTableHeader();
+		backupPlanner.printAllCourses();
+		printMenu();
+		commandManager();
+	}
+	
+	/**
+	 * Changes the reference of the main planner to the backup planner.
+	 * 
+	 * <dt>Postconditions</dt>
+	 * <dd>The main planner has reverted to the backup.</dd>
+	 */
+	public static void revertToBackup() {
+		planner = backupPlanner;
+		System.out.println("Planner successfully reverted to the backup copy.");
+		printMenu();
+		commandManager();
 	}
 
 	public static void main(String[] args) throws FullPlannerException {

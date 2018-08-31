@@ -10,7 +10,7 @@ package courseplanner;
 *    
 **/
 
-public class Planner {
+public class Planner implements Cloneable {
 	private final int MAX_COURSES = 50; // Maximum amount of courses the planner can hold
 	private Course[] courseList; // Array of courses
 	private int courseCount;// Number of courses in courseList
@@ -143,6 +143,7 @@ public class Planner {
 			courseList[i] = courseList[i+1];
 			courseList[i+1] = null;
 		}
+		courseCount -= 1;
 	}
 	
 	/**
@@ -187,7 +188,7 @@ public class Planner {
 	public static void filter(Planner planner, String department) {
 		for (int i = 0; i < planner.courseCount; i++) {
 			Course course = planner.courseList[i];
-			if ( course.getDepartment() == department) {
+			if ( course.getDepartment().equals(department)) {
 				System.out.println(course.toString(i + 1));
 			}
 		}
