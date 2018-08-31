@@ -81,6 +81,14 @@ public class PlannerManager {
 			lookForCourse();
 			break;
 		}
+		case "S": {
+			size();
+			break;
+		}
+		case "B": {
+			backup();
+			break;
+		}
 		case "Q": {
 			System.out.println("Program terminating successfully...");
 			System.exit(0);
@@ -122,8 +130,10 @@ public class PlannerManager {
 		System.out.print("Enter position: ");
 		int position = in.nextPositiveInt();
 
+		Course course = null;
 		try {
-			planner.addCourse(new Course(name, department, code, section, instructor), position);
+			course = new Course(name, department, code, section, instructor);
+			planner.addCourse(course, position);
 		} catch (IllegalArgumentException e) {
 			System.err.println("The position is invalid, and must be between 1 and " + (planner.size() + 1) + ". Please try again.");
 			addCourse();
@@ -132,7 +142,7 @@ public class PlannerManager {
 			commandManager();
 		}
 
-		System.out.println("The course " + name + " has successfully been added.");
+		System.out.println("The course " + course.toShortString() + " has successfully been added.");
 		printMenu();
 		commandManager();
 	}
@@ -170,7 +180,7 @@ public class PlannerManager {
 		
 		try {
 			Course course = planner.getCourse(position);
-			System.out.println("The course" + course.getDepartment() + " " + course.getCode() + "." + course.getSection() + " has been removed.");
+			System.out.println("The course " + course.toShortString() + " has been removed.");
 			planner.removeCourse(position);
 			printMenu();
 			commandManager();
@@ -233,7 +243,7 @@ public class PlannerManager {
 		for (int i = 0; i < planner.size(); i++) {
 			Course course = planner.getCourse(i + 1);
 			if (course.getName() == name && course.getDepartment() == department && course.getCode() == code && course.getSection() == section && course.getInstructor() == instructor) {
-				System.out.println("The course" + course.getDepartment() + " " + course.getCode() + "." + course.getSection() + " has been found in position " + (i + 1) + ".");
+				System.out.println("The course " + course.toShortString() + " has been found in position " + (i + 1) + ".");
 				printMenu();
 				commandManager();
 			}
@@ -243,9 +253,36 @@ public class PlannerManager {
 		printMenu();
 		commandManager();
 	}
+	
+	/**
+	 * Prints the number of courses in the planner to the user.
+	 * 
+	 * <dt>Postconditions</dt>
+	 * <dd>The number of courses has been printed, and the user returns to the menu.</dd>
+	 */
+	public static void size() {
+		if (planner.size() == 1) {
+			System.out.println("There is 1 course in the planner.");
+		} else {
+			System.out.println("There are " + planner.size() + " course(s) in the planner.");
+		}
+		printMenu();
+		commandManager();
+	}
+	
+	/**
+	 * Saves a deep copy of the planner to backupPlanner.
+	 * 
+	 * <dt>Postconditions</dt>
+	 * <dd>The backupPlanner is a deep copy of the planner.</dd>
+	 */
+	public static void backup() {
+		backupPlanner = (Planner) planner.clone();
+	}
 
 	public static void main(String[] args) throws FullPlannerException {
 		printMenu();
 		commandManager();
 	}
+	
 }

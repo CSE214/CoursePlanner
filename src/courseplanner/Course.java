@@ -154,8 +154,13 @@ public class Course implements Cloneable {
 	 * 	Deep copy of the course.
 	 */
 	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println("This course cannot be cloned.");
+			return null;
+		}
 	}
 
 	/**
@@ -179,6 +184,10 @@ public class Course implements Cloneable {
 	
 	public String toString(int position) {
 		return String.format("%-10s%-30s%-15s%-10s%02d%17s\n", position, name, department, code, section, instructor);
+	}
+	
+	public String toShortString() {
+		return getDepartment() + " " + getCode() + "." + getSection();
 	}
 	
 }

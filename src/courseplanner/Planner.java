@@ -243,8 +243,13 @@ public class Planner {
      * 	A clone (backup) of this Planner Object. 
 	 */
 	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println("This planner cannot be cloned.");
+			return null;
+		}
 	}
 	
 	/**
