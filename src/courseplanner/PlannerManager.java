@@ -1,7 +1,5 @@
 package courseplanner;
 
-import java.util.Scanner;
-
 /**
  * The <code>PlannerManager</code> class The main method runs a menu driven
  * application which first creates an empty Planner object. The program prompts
@@ -23,8 +21,11 @@ public class PlannerManager {
 	/**
 	 * Prints a list of commands for the user.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
 	 * <dd>The list of commands has been printed.</dd>
+	 * </dl>
+	 * 
 	 */
 	public static void printMenu() {
 		System.out.println("\n(A) Add Course\r\n" + "(G) Get Course\r\n" + "(R) Remove Course\r\n"
@@ -36,22 +37,24 @@ public class PlannerManager {
 	/**
 	 * Prints the header for the planner table.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
 	 * <dd>The planner table has been printed.</dd>
+	 * </dl>
 	 */
 	public static void printTableHeader() {
-		System.out.println(String.format("\n%-10s%-30s%-15s%-10s%2s%15s", "No.", "Name", "Department", "Code", "Section",
-				"Instructor")
+		System.out.println(String.format("\n%-10s%-30s%-15s%-10s%2s%15s", "No.", "Name", "Department", "Code",
+				"Section", "Instructor")
 				+ "\n---------------------------------------------------------------------------------------------------------\n");
 	}
 
 	/**
-	 * Delegates which function to run depending on the command entered.
+	 * Delegates which function to run depending on the command entered..
 	 * 
-	 * @param in The scanner being used to handle input.
-	 * 
-	 *           <dt>Postconditions</dt>
-	 *           <dd>The command has called the appropriate function.</dd>
+	 * <dl>
+	 * <dt>Postconditions</dt>
+	 * <dd>The command has called the appropriate function.</dd>
+	 * </dl>
 	 */
 	public static void commandManager() {
 		System.out.print("Enter a selection: ");
@@ -113,11 +116,12 @@ public class PlannerManager {
 	 * Constructs the course object specified by the parameters and adds it to the
 	 * planner.
 	 * 
-	 * @param in The scanner being used to handle input.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
-	 * <dd>The course with the given field values is now in the
-	 * planner, and the user returns to the menu.</dd>
+	 * <dd>The course with the given field values is now in the planner, and the
+	 * user returns to the menu.</dd>
+	 * </dl>
 	 * 
 	 */
 	public static void addCourse() {
@@ -143,7 +147,8 @@ public class PlannerManager {
 			course = new Course(name, department, code, section, instructor);
 			planner.addCourse(course, position);
 		} catch (IllegalArgumentException e) {
-			System.err.println("The position is invalid, and must be between 1 and " + (planner.size() + 1) + ". Please try again.");
+			System.err.println("The position is invalid, and must be between 1 and " + (planner.size() + 1)
+					+ ". Please try again.");
 			addCourse();
 		} catch (FullPlannerException e) {
 			System.err.println("The planner is already full.");
@@ -154,71 +159,86 @@ public class PlannerManager {
 		printMenu();
 		commandManager();
 	}
-	
+
 	/**
 	 * Retrieves the course from the specified position, and prints it to the user.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
-	 * <dd>The desired course has been printed, and the user returns to the menu.</dd>
+	 * <dd>The desired course has been printed, and the user returns to the
+	 * menu.</dd>
+	 * </dl>
 	 */
 	public static void getCourse() {
 		System.out.print("Enter position: ");
 		int position = in.nextPositiveInt();
-		
+
 		try {
 			printTableHeader();
 			System.out.println(planner.getCourse(position).toString(position));
 			printMenu();
 			commandManager();
 		} catch (IllegalArgumentException e) {
-			System.err.println("The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.");
+			System.err.println(
+					"The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.");
 			getCourse();
 		}
 	}
-	
+
 	/**
-	 * Removes the course from the specified position, and prints out a confirmation message.
+	 * Removes the course from the specified position, and prints out a confirmation
+	 * message.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
-	 * <dd>The desired course has been printed, and the user returns to the menu.</dd>
+	 * <dd>The desired course has been printed, and the user returns to the
+	 * menu.</dd>
+	 * </dl>
 	 */
 	public static void removeCourse() {
 		System.out.print("Enter position: ");
 		int position = in.nextPositiveInt();
-		
+
 		try {
 			Course course = planner.getCourse(position);
 			System.out.println("The course " + course.toShortString() + " has been removed.");
 			planner.removeCourse(position);
 			printMenu();
 			commandManager();
-			
+
 		} catch (IllegalArgumentException e) {
-			System.err.println("The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.");
+			System.err.println(
+					"The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.");
 			removeCourse();
 		}
 	}
-	
+
 	/**
 	 * Prints all the courses in the planner.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
 	 * <dd>The planner has been printed, and the user returns to the menu.</dd>
+	 * </dl>
 	 */
 	public static void printAllCourses() {
-		System.out.println("Planner:");
+		System.out.print("\nPlanner:");
 		printTableHeader();
 		planner.printAllCourses();
 		printMenu();
 		commandManager();
 	}
-	
+
 	/**
-	 * Filters the courses based on a given department code, and prints the
-	 * results to the user.
+	 * Filters the courses based on a given department code, and prints the results
+	 * to the user.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
-	 * <dd>The filtered courses have been printed, and the user returns to the menu.</dd>
+	 * <dd>The filtered courses have been printed, and the user returns to the
+	 * menu.</dd>
+	 * </dl>
+	 * 
 	 */
 	public static void filterCourses() {
 		System.out.print("Enter department code: ");
@@ -228,13 +248,16 @@ public class PlannerManager {
 		printMenu();
 		commandManager();
 	}
-	
+
 	/**
 	 * Looks for a course with the given fields in the planner.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
 	 * <dd>The program attempts to find the course, and prints the appropriate
 	 * message. The user then returns to the menu.</dd>
+	 * </dl>
+	 * 
 	 */
 	public static void lookForCourse() {
 		System.out.print("Enter course name: ");
@@ -247,26 +270,31 @@ public class PlannerManager {
 		byte section = (byte) in.nextNonNegativeInt();
 		System.out.print("Enter instructor: ");
 		String instructor = in.nextLine();
-		
+
 		for (int i = 0; i < planner.size(); i++) {
 			Course course = planner.getCourse(i + 1);
-			if (course.getName() == name && course.getDepartment() == department && course.getCode() == code && course.getSection() == section && course.getInstructor() == instructor) {
-				System.out.println("The course " + course.toShortString() + " has been found in position " + (i + 1) + ".");
+			if (course.getName() == name && course.getDepartment() == department && course.getCode() == code
+					&& course.getSection() == section && course.getInstructor() == instructor) {
+				System.out.println(
+						"The course " + course.toShortString() + " has been found in position " + (i + 1) + ".");
 				printMenu();
 				commandManager();
 			}
 		}
-		
+
 		System.err.println("That course could not be found.");
 		printMenu();
 		commandManager();
 	}
-	
+
 	/**
 	 * Prints the number of courses in the planner to the user.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
-	 * <dd>The number of courses has been printed, and the user returns to the menu.</dd>
+	 * <dd>The number of courses has been printed, and the user returns to the
+	 * menu.</dd>
+	 * </dl>
 	 */
 	public static void size() {
 		if (planner.size() == 1) {
@@ -277,12 +305,14 @@ public class PlannerManager {
 		printMenu();
 		commandManager();
 	}
-	
+
 	/**
 	 * Saves a deep copy of the planner to backupPlanner.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
 	 * <dd>The backupPlanner is a deep copy of the planner.</dd>
+	 * </dl>
 	 */
 	public static void backup() {
 		backupPlanner = (Planner) planner.clone();
@@ -290,26 +320,33 @@ public class PlannerManager {
 		printMenu();
 		commandManager();
 	}
-	
+
 	/**
 	 * Prints all the courses in the backup planner.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
-	 * <dd>The backup planner has been printed, and the user returns to the menu.</dd>
+	 * <dd>The backup planner has been printed, and the user returns to the
+	 * menu.</dd>
+	 * </dl>
+	 * 
 	 */
 	public static void printBackup() {
-		System.out.println("Planner (Backup):");
+		System.out.print("\nPlanner (Backup):");
 		printTableHeader();
 		backupPlanner.printAllCourses();
 		printMenu();
 		commandManager();
 	}
-	
+
 	/**
 	 * Changes the reference of the main planner to the backup planner.
 	 * 
+	 * <dl>
 	 * <dt>Postconditions</dt>
 	 * <dd>The main planner has reverted to the backup.</dd>
+	 * </dl>
+	 * 
 	 */
 	public static void revertToBackup() {
 		planner = backupPlanner;
@@ -322,5 +359,5 @@ public class PlannerManager {
 		printMenu();
 		commandManager();
 	}
-	
+
 }

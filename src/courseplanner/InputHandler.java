@@ -3,76 +3,67 @@ package courseplanner;
 import java.util.Scanner;
 
 /**
-* The <code>InputHandler</code> class provides automatic input validation.
-*    
-*
-* @author Sayan Sivakumaran
-*    e-mail: sayan.sivakumaran@stonybrook.edu
-*    Stony Brook ID: 110261379
-*    
-**/
+ * The <code>InputHandler</code> class provides automatic input validation.
+ * 
+ *
+ * @author Sayan Sivakumaran e-mail: sayan.sivakumaran@stonybrook.edu Stony
+ *         Brook ID: 110261379
+ * 
+ **/
 
 public class InputHandler {
 	private Scanner in = new Scanner(System.in);
-	
+
 	/**
 	 * Equivalent to Scanner's nextLine().
 	 * 
-	 * @return
-	 * 	The Scanner's nextLine() value.
+	 * @return The Scanner's nextLine() value.
 	 */
 	public String nextLine() {
 		return in.nextLine();
 	}
-	
+
 	/**
-	 * Equivalent to Scanner's nextInt().
+	 * Receives an integer from user input..
 	 * 
-	 * @return
-	 * 	The Scanner's nextInt() value.
+	 * @return An integer.
 	 */
 	public int nextInt() {
-		return in.nextInt();
+		while (!in.hasNextInt()) {
+			System.err.print("Please enter a number: ");
+			in.nextLine();
+		}
+		return Integer.parseInt(in.nextLine());
 	}
-	
+
 	/**
-	 * Receives a non-negative number from user input.
+	 * Receives a non-negative integer from user input.
 	 * 
-	 * @return
-	 * 	A non-negative number.
+	 * @return A non-negative integer.
 	 */
 	public int nextNonNegativeInt() {
 		int number;
 		do {
-		    while (!in.hasNextInt()) {
-		        System.err.print("Please enter a number: ");
-		        in.nextLine();
-		    }
-		    number = Integer.parseInt(in.nextLine());
-		    if (number <= 0) {
-		    	System.err.print("Please make sure to give a non-negative number: ");
-		    }
+			number = nextInt();
+			if (number <= 0) {
+				System.err.print("Please make sure to give a non-negative number: ");
+			}
 		} while (number <= 0);
 		return number;
 	}
 
 	/**
-	 * Receives a positive number from user input.
+	 * Receives a positive integer from user input.
 	 * 
-	 * @return
-	 * 	A positive number.
+	 * @return A positive integer.
 	 */
 	public int nextPositiveInt() {
 		int number;
 		do {
-		    while (!in.hasNextInt()) {
-		        System.err.print("Please enter a number: ");
-		        in.nextLine();
-		    }
-		    number = Integer.parseInt(in.nextLine());
-		    if (number < 0) {
-		    	System.err.print("Please make sure to give a non-negative number: ");
-		    }
+			number = nextInt();
+			if (number < 0) {
+				System.err.print("Please make sure to give a non-negative number: ");
+			}
 		} while (number < 0);
 		return number;
 	}

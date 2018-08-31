@@ -1,1 +1,1 @@
-typeSearchIndex = [{"p":"courseplanner","l":"Planner"}]
+typeSearchIndex = [{"p":"courseplanner","l":"Course"},{"p":"courseplanner","l":"FullPlannerException"},{"p":"courseplanner","l":"InputHandler"},{"p":"courseplanner","l":"Planner"},{"p":"courseplanner","l":"PlannerManager"}]
