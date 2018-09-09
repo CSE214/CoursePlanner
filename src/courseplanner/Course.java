@@ -70,12 +70,12 @@ public class Course implements Cloneable {
 	 *             <dd><code>section</code> is at least 0.</dd>
 	 *             </dl>
 	 * 
-	 * @throws IllegalArgumentException if <code>code</code> is below 0.
+	 * @throws NegativeNumberException if <code>code</code> is below 0.
 	 * 
 	 */
-	public void setCode(int code) throws IllegalArgumentException {
+	public void setCode(int code) throws NegativeNumberException {
 		if (code < 0) {
-			throw new IllegalArgumentException("Code can't be a negative number.");
+			throw new NegativeNumberException("Code can't be a negative number.");
 		}
 		this.code = code;
 	}
@@ -99,11 +99,11 @@ public class Course implements Cloneable {
 	 *                <dd><code>section</code> is at least 0.</dd>
 	 *                </dl>
 	 * 
-	 * @throws IllegalArgumentException if <code>section</code> is below 0.
+	 * @throws NegativeNumberException if <code>section</code> is below 0.
 	 */
-	public void setSection(byte section) throws IllegalArgumentException {
+	public void setSection(byte section) throws NegativeNumberException {
 		if (section < 0) {
-			throw new IllegalArgumentException("Section can't be a negative number");
+			throw new NegativeNumberException("Section can't be a negative number");
 		}
 		this.section = section;
 	}
@@ -148,7 +148,7 @@ public class Course implements Cloneable {
 	 * Provides a deep copy of the course.
 	 * 
 	 * <p>
-	 * <strong>Note:</strong> Make sure to typecast the copy to <code>Course</code>.
+	 * <strong>Note:</strong> Make sure to typecast the return value to <code>Course</code>.
 	 * </p>
 	 * 
 	 * @return Deep copy of the course.
@@ -188,7 +188,7 @@ public class Course implements Cloneable {
 	 * @return The table entry string representation of the course.
 	 */
 	public String toString(int position) {
-		return String.format("%-10s%-30s%-15s%-10s%02d%17s\n", position, name, department, code, section, instructor);
+		return String.format("%-10s%-30s%-15s%-10s0%-9s%-15s\n", position, name, department, code, section, instructor);
 	}
 
 	/**

@@ -43,7 +43,7 @@ public class PlannerManager {
 	 * </dl>
 	 */
 	public static void printTableHeader() {
-		System.out.println(String.format("\n%-10s%-30s%-15s%-10s%2s%15s", "No.", "Name", "Department", "Code",
+		System.out.println(String.format("\n%-10s%-30s%-15s%-10s%-10s%-15s", "No.", "Name", "Department", "Code",
 				"Section", "Instructor")
 				+ "\n---------------------------------------------------------------------------------------------------------\n");
 	}
@@ -273,8 +273,8 @@ public class PlannerManager {
 
 		for (int i = 0; i < planner.size(); i++) {
 			Course course = planner.getCourse(i + 1);
-			if (course.getName() == name && course.getDepartment() == department && course.getCode() == code
-					&& course.getSection() == section && course.getInstructor() == instructor) {
+			if (course.getName().equals(name) && course.getDepartment().equals(department) && course.getCode() == code
+					&& course.getSection() == section && course.getInstructor().equals(instructor)) {
 				System.out.println(
 						"The course " + course.toShortString() + " has been found in position " + (i + 1) + ".");
 				printMenu();
@@ -356,6 +356,7 @@ public class PlannerManager {
 	}
 
 	public static void main(String[] args) throws FullPlannerException {
+		planner.addCourse(new Course("Computational Geometry", "CSE", 355, (byte) 2, "Jie Gao"));
 		printMenu();
 		commandManager();
 	}

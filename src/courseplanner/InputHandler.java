@@ -24,7 +24,7 @@ public class InputHandler {
 	}
 
 	/**
-	 * Receives an integer from user input..
+	 * Receives an integer from user input.
 	 * 
 	 * @return An integer.
 	 */
@@ -45,7 +45,7 @@ public class InputHandler {
 		int number;
 		do {
 			number = nextInt();
-			if (number <= 0) {
+			if (number < 0) {
 				System.err.print("Please make sure to give a non-negative number: ");
 			}
 		} while (number <= 0);
@@ -61,8 +61,8 @@ public class InputHandler {
 		int number;
 		do {
 			number = nextInt();
-			if (number < 0) {
-				System.err.print("Please make sure to give a non-negative number: ");
+			if (number <= 0) {
+				System.err.print("Please make sure to give a positive number: ");
 			}
 		} while (number < 0);
 		return number;

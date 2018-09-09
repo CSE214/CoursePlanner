@@ -10,7 +10,7 @@ package courseplanner;
  * 
  **/
 
-public class Planner implements Cloneable {
+public class Planner {
 	private final int MAX_COURSES = 50; // Maximum amount of courses the planner can hold
 	private Course[] courseList; // Array of courses
 	private int courseCount;// Number of courses in courseList
@@ -232,20 +232,26 @@ public class Planner implements Cloneable {
 	 * <dd>This Planner object has been instantiated.</dd>
 	 * </dl>
 	 * 
+	 * <p>
+	 * <strong>Note:</strong> Make sure to typecast the return value to <code>Course</code>.
+	 * </p>
+	 * 
 	 * @return A clone (backup) of this Planner Object.
 	 */
-	@Override
 	public Object clone() {
-		try {
-			return super.clone();
-		} catch (CloneNotSupportedException e) {
-			System.out.println("This planner cannot be cloned.");
-			return null;
-		}
+		Object clonedPlanner = new Planner();
+		((Planner) clonedPlanner).courseList = (Course[]) courseList.clone();
+		((Planner) clonedPlanner).courseCount = courseCount;
+		
+		return clonedPlanner;
 	}
 
 	/**
 	 * Gets the String representation of this Planner object.
+	 * 
+	 * <dl>
+	 * <dt>Preconditions:</dt>
+	 * <dd>This Planner object has been instantiated.</dd>
 	 *
 	 * @return The string representation of this planner object.
 	 */
