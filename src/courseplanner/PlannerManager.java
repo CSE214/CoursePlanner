@@ -1,5 +1,7 @@
 package courseplanner;
 
+import java.util.Scanner;
+
 /**
  * The <code>PlannerManager</code> class The main method runs a menu driven
  * application which first creates an empty Planner object. The program prompts
@@ -16,7 +18,7 @@ package courseplanner;
 public class PlannerManager {
 	private static Planner planner = new Planner(); // Stores the main Planner
 	private static Planner backupPlanner = new Planner(); // Stores the backup Planner
-	private static InputHandler in = new InputHandler();
+	private static Scanner in = new Scanner(System.in);
 
 	/**
 	 * Prints a list of commands for the user.
@@ -134,24 +136,31 @@ public class PlannerManager {
 		System.out.print("Enter department: ");
 		String department = in.nextLine();
 		System.out.print("Enter course code: ");
-		int code = in.nextNonNegativeInt();
+		int code = Integer.parseInt(in.nextLine());
 		System.out.print("Enter course section: ");
-		byte section = (byte) in.nextNonNegativeInt();
+		byte section = Byte.parseByte(in.nextLine());
 		System.out.print("Enter instructor: ");
 		String instructor = in.nextLine();
 		System.out.print("Enter position: ");
-		int position = in.nextPositiveInt();
+		int position = Integer.parseInt(in.nextLine());
 
 		Course course = null;
 		try {
 			course = new Course(name, department, code, section, instructor);
 			planner.addCourse(course, position);
 		} catch (IllegalArgumentException e) {
-			System.err.println("The position is invalid, and must be between 1 and " + (planner.size() + 1)
-					+ ". Please try again.");
-			addCourse();
+			
+				System.err.println("The position is invalid, and must be between 1 and " + (planner.size() + 1)
+						+ ". Please try again.");
+			printMenu();
+			commandManager();
 		} catch (FullPlannerException e) {
 			System.err.println("The planner is already full.");
+			printMenu();
+			commandManager();
+		} catch (NegativeNumberException e) {
+			System.err.println("Make sure both the code and section are non-negative.");
+			printMenu();
 			commandManager();
 		}
 
@@ -171,7 +180,7 @@ public class PlannerManager {
 	 */
 	public static void getCourse() {
 		System.out.print("Enter position: ");
-		int position = in.nextPositiveInt();
+		int position = Integer.parseInt(in.nextLine());
 
 		try {
 			printTableHeader();
@@ -180,7 +189,7 @@ public class PlannerManager {
 			commandManager();
 		} catch (IllegalArgumentException e) {
 			System.err.println(
-					"The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.");
+					"The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.\n");
 			getCourse();
 		}
 	}
@@ -197,7 +206,7 @@ public class PlannerManager {
 	 */
 	public static void removeCourse() {
 		System.out.print("Enter position: ");
-		int position = in.nextPositiveInt();
+		int position = Integer.parseInt(in.nextLine());
 
 		try {
 			Course course = planner.getCourse(position);
@@ -205,10 +214,9 @@ public class PlannerManager {
 			planner.removeCourse(position);
 			printMenu();
 			commandManager();
-
 		} catch (IllegalArgumentException e) {
 			System.err.println(
-					"The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.");
+					"The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.\n");
 			removeCourse();
 		}
 	}
@@ -265,9 +273,9 @@ public class PlannerManager {
 		System.out.print("Enter department: ");
 		String department = in.nextLine();
 		System.out.print("Enter course code: ");
-		int code = in.nextNonNegativeInt();
+		int code = Integer.parseInt(in.nextLine());
 		System.out.print("Enter course section: ");
-		byte section = (byte) in.nextNonNegativeInt();
+		byte section = Byte.parseByte(in.nextLine());
 		System.out.print("Enter instructor: ");
 		String instructor = in.nextLine();
 
@@ -355,7 +363,7 @@ public class PlannerManager {
 		commandManager();
 	}
 
-	public static void main(String[] args) throws FullPlannerException {
+	public static void main(String[] args) throws FullPlannerException, NegativeNumberException {
 		planner.addCourse(new Course("Computational Geometry", "CSE", 355, (byte) 2, "Jie Gao"));
 		printMenu();
 		commandManager();

@@ -68,12 +68,18 @@ public class Planner {
 	 *                                  valid range.
 	 * @throws FullPlannerException     Indicates that there is no more room in the
 	 *                                  Planner for an additional course.
+	 * @throws NegativeNumberException  Indicates that either the code or section
+	 * 									passed in is negative.
 	 */
-	public void addCourse(Course course, int position) throws IllegalArgumentException, FullPlannerException {
+	public void addCourse(Course course, int position) throws IllegalArgumentException, FullPlannerException, NegativeNumberException {
 		if (position < 1 || position > courseCount + 1) {
 			throw new IllegalArgumentException(position + " is out of range.");
 		} else if (courseCount == MAX_COURSES) {
 			throw new FullPlannerException();
+		} else if (course.getCode() < 0) {
+			throw new NegativeNumberException();
+		} else if (course.getSection() < 0) {
+			throw new NegativeNumberException();
 		}
 		// Position shifted down by 1 to account for index starting at 0
 		position -= 1;
@@ -101,10 +107,12 @@ public class Planner {
 	 *               <dd>The new Course is now listed at the end of the list.</dd>
 	 *               </dl>
 	 * 
-	 * @throws FullPlannerException Indicates that there is no more room in the
-	 *                              Planner for an additional course.
+	 * @throws FullPlannerException 	Indicates that there is no more room in the
+	 *                              	Planner for an additional course.
+	 * @throws NegativeNumberException  Indicates that either the code or section
+	 * 									passed in is negative.
 	 */
-	public void addCourse(Course course) throws FullPlannerException {
+	public void addCourse(Course course) throws FullPlannerException, NegativeNumberException {
 		addCourse(course, courseCount + 1);
 	}
 
@@ -161,6 +169,9 @@ public class Planner {
 	 *                                  within the valid range.
 	 */
 	public Course getCourse(int position) throws IllegalArgumentException {
+		if (position < 1 || courseCount < position) {
+			throw new IllegalArgumentException();
+		}
 		return courseList[position - 1];
 	}
 
@@ -184,7 +195,7 @@ public class Planner {
 		for (int i = 0; i < planner.courseCount; i++) {
 			Course course = planner.courseList[i];
 			if (course.getDepartment().equals(department)) {
-				System.out.println(course.toString(i + 1));
+				System.out.print(course.toString(i + 1));
 			}
 		}
 	}
