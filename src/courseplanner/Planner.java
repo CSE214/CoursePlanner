@@ -263,7 +263,8 @@ public class Planner {
 	 * <dl>
 	 * <dt>Preconditions:</dt>
 	 * <dd>This Planner object has been instantiated.</dd>
-	 *
+	 * </dl>
+	 * 
 	 * @return The string representation of this planner object.
 	 */
 	@Override

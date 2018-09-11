@@ -3,7 +3,7 @@ package courseplanner;
 import java.util.Scanner;
 
 /**
- * The <code>PlannerManager</code> class The main method runs a menu driven
+ * The <code>PlannerManager</code> class runs a menu driven
  * application which first creates an empty Planner object. The program prompts
  * the user for a command to execute an operation. Once a command has been
  * chosen, the program may ask the user for additional information if necessary,
@@ -108,7 +108,7 @@ public class PlannerManager {
 			break;
 		}
 		default: {
-			System.err.println("That command is not valid. Please try again.");
+			System.out.println("That command is not valid. Please try again.");
 			commandManager();
 		}
 		}
@@ -128,7 +128,7 @@ public class PlannerManager {
 	 */
 	public static void addCourse() {
 		if (planner.isFull()) {
-			System.err.println("The planner is already full.");
+			System.out.println("The planner is already full.");
 			commandManager();
 		}
 		System.out.print("Enter course name: ");
@@ -150,16 +150,16 @@ public class PlannerManager {
 			planner.addCourse(course, position);
 		} catch (IllegalArgumentException e) {
 			
-				System.err.println("The position is invalid, and must be between 1 and " + (planner.size() + 1)
+				System.out.println("The position is invalid, and must be between 1 and " + (planner.size() + 1)
 						+ ". Please try again.");
 			printMenu();
 			commandManager();
 		} catch (FullPlannerException e) {
-			System.err.println("The planner is already full.");
+			System.out.println("The planner is already full.");
 			printMenu();
 			commandManager();
 		} catch (NegativeNumberException e) {
-			System.err.println("Make sure both the code and section are non-negative.");
+			System.out.println("Make sure both the code and section are non-negative.");
 			printMenu();
 			commandManager();
 		}
@@ -188,7 +188,7 @@ public class PlannerManager {
 			printMenu();
 			commandManager();
 		} catch (IllegalArgumentException e) {
-			System.err.println(
+			System.out.println(
 					"The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.\n");
 			getCourse();
 		}
@@ -215,7 +215,7 @@ public class PlannerManager {
 			printMenu();
 			commandManager();
 		} catch (IllegalArgumentException e) {
-			System.err.println(
+			System.out.println(
 					"The position is invalid, and must be between 1 and " + planner.size() + ". Please try again.\n");
 			removeCourse();
 		}
@@ -290,7 +290,7 @@ public class PlannerManager {
 			}
 		}
 
-		System.err.println("That course could not be found.");
+		System.out.println("That course could not be found.");
 		printMenu();
 		commandManager();
 	}
@@ -357,12 +357,21 @@ public class PlannerManager {
 	 * 
 	 */
 	public static void revertToBackup() {
-		planner = backupPlanner;
+		planner = (Planner) backupPlanner.clone();
 		System.out.println("Planner successfully reverted to the backup copy.");
 		printMenu();
 		commandManager();
 	}
 
+	/**
+	 * Starts the program, and sends the user to the main menu.
+	 * 
+	 * <dl>
+	 * <dt>Postconditions</dt>
+	 * <dd>The user enters the main menu.</dd>
+	 * </dl>
+	 * 
+	 */
 	public static void main(String[] args) throws FullPlannerException, NegativeNumberException {
 		planner.addCourse(new Course("Computational Geometry", "CSE", 355, (byte) 2, "Jie Gao"));
 		printMenu();

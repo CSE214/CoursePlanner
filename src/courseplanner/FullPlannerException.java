@@ -12,7 +12,7 @@ package courseplanner;
 public class FullPlannerException extends Exception {
 	
 	/**
-	 * Returns an instance of <code>NegativeNumberException</code>.
+	 * Returns an instance of <code>FullPlannerException</code>.
 	 */
 	public FullPlannerException() {
 		super();
