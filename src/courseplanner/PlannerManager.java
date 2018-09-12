@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class PlannerManager {
 	private static Planner planner = new Planner(); // Stores the main Planner
 	private static Planner backupPlanner = new Planner(); // Stores the backup Planner
-	private static Scanner in = new Scanner(System.in);
+	private static Scanner in = new Scanner(System.in); // Takes input from user
 
 	/**
 	 * Prints a list of commands for the user.
@@ -60,7 +60,7 @@ public class PlannerManager {
 	 */
 	public static void commandManager() {
 		System.out.print("Enter a selection: ");
-		String command = in.nextLine();
+		String command = in.nextLine().trim();
 		switch (command.toUpperCase()) {
 		case "A": {
 			addCourse();
@@ -132,17 +132,17 @@ public class PlannerManager {
 			commandManager();
 		}
 		System.out.print("Enter course name: ");
-		String name = in.nextLine();
+		String name = in.nextLine().trim();
 		System.out.print("Enter department: ");
-		String department = in.nextLine();
+		String department = in.nextLine().trim();
 		System.out.print("Enter course code: ");
-		int code = Integer.parseInt(in.nextLine());
+		int code = Integer.parseInt(in.nextLine().trim());
 		System.out.print("Enter course section: ");
-		byte section = Byte.parseByte(in.nextLine());
+		byte section = Byte.parseByte(in.nextLine().trim());
 		System.out.print("Enter instructor: ");
-		String instructor = in.nextLine();
+		String instructor = in.nextLine().trim();
 		System.out.print("Enter position: ");
-		int position = Integer.parseInt(in.nextLine());
+		int position = Integer.parseInt(in.nextLine().trim());
 
 		Course course = null;
 		try {
@@ -180,7 +180,7 @@ public class PlannerManager {
 	 */
 	public static void getCourse() {
 		System.out.print("Enter position: ");
-		int position = Integer.parseInt(in.nextLine());
+		int position = Integer.parseInt(in.nextLine().trim());
 
 		try {
 			printTableHeader();
@@ -206,7 +206,7 @@ public class PlannerManager {
 	 */
 	public static void removeCourse() {
 		System.out.print("Enter position: ");
-		int position = Integer.parseInt(in.nextLine());
+		int position = Integer.parseInt(in.nextLine().trim());
 
 		try {
 			Course course = planner.getCourse(position);
@@ -250,7 +250,7 @@ public class PlannerManager {
 	 */
 	public static void filterCourses() {
 		System.out.print("Enter department code: ");
-		String department = in.nextLine();
+		String department = in.nextLine().trim();
 		printTableHeader();
 		Planner.filter(planner, department);
 		printMenu();
@@ -269,15 +269,15 @@ public class PlannerManager {
 	 */
 	public static void lookForCourse() {
 		System.out.print("Enter course name: ");
-		String name = in.nextLine();
+		String name = in.nextLine().trim();
 		System.out.print("Enter department: ");
-		String department = in.nextLine();
+		String department = in.nextLine().trim();
 		System.out.print("Enter course code: ");
-		int code = Integer.parseInt(in.nextLine());
+		int code = Integer.parseInt(in.nextLine().trim());
 		System.out.print("Enter course section: ");
-		byte section = Byte.parseByte(in.nextLine());
+		byte section = Byte.parseByte(in.nextLine().trim());
 		System.out.print("Enter instructor: ");
-		String instructor = in.nextLine();
+		String instructor = in.nextLine().trim();
 
 		for (int i = 0; i < planner.size(); i++) {
 			Course course = planner.getCourse(i + 1);
@@ -372,8 +372,7 @@ public class PlannerManager {
 	 * </dl>
 	 * 
 	 */
-	public static void main(String[] args) throws FullPlannerException, NegativeNumberException {
-		planner.addCourse(new Course("Computational Geometry", "CSE", 355, (byte) 2, "Jie Gao"));
+	public static void main(String[] args) {
 		printMenu();
 		commandManager();
 	}
